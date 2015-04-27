@@ -18,4 +18,18 @@ public class Main {
   public static ArrayList<Student> student_Array = new ArrayList<Student>();
   public static ArrayList<Question> question_Array = new ArrayList<Question>();
   
+  enum Token {
+    LOOKING_FOR_KEYS,
+    LOOKING_FOR_TYPE,
+    FOUND_TYPE
+  }
+  
+  public static void main (String [] args){
+    
+    try{ // Trying to load the MySql Drive.
+      Class.forName("com.mysql.jdbc.Driver");
+    }catch(ClassNotFoundException ex){
+      return;
+    }
+  }
 }
