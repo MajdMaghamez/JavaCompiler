@@ -85,32 +85,32 @@ public class Main {
           }
           else{
             System.out.println("Program could not compile, check for Syntax errors.");
-						student.AddGrade(0);
-						student.setProfessorNotes("program did not compile");
+		student.AddGrade(0);
+		student.setProfessorNotes("program did not compile");
 						
-						if(NameOfFunction(question, student)) {
-						  student.AddGrade(PartialGrade);
-						  student.AddToProfessorNotes("Function name correction ");
-						}
-						else{
-						  student.AddToProfessorNotes("Function name is incorrect");
-						}
+		if(NameOfFunction(question, student)) {
+			  student.AddGrade(PartialGrade);
+			  student.AddToProfessorNotes("Function name correction ");
+		}
+		else{
+			student.AddToProfessorNotes("Function name is incorrect");	
+		}
 						
-						if(FunctionReturnValue(question)){
-						  student.AddGrade(ParialGrade);
-						  studnet.AddToProfessorNotes("Function returns correct value");
-						}
-						else{
-						  student.AddToProfessorNotes("Function return wront value");
-						}
+		if(FunctionReturnValue(question)){
+		  student.AddGrade(ParialGrade);
+		  studnet.AddToProfessorNotes("Function returns correct value");
+		}
+		else{
+		  student.AddToProfessorNotes("Function return wront value");
+		}
 						
-						if(FunctionTypeValidor(question, student)){
-						  student.AddGrade(PartialGrade);
-						  student.AddToProfessorNotes("Function type is correct");
-						}
-						else{
-						  student.AddToProfessorNotes("Function type is incorrect");
-						}
+		if(FunctionTypeValidor(question, student)){
+		  student.AddGrade(PartialGrade);
+		  student.AddToProfessorNotes("Function type is correct");
+		}
+		else{
+		  student.AddToProfessorNotes("Function type is incorrect");
+		}
           }
           test_Array.add(test);
           student_Array.add(student);
