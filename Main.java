@@ -10,5 +10,12 @@ import java.sql.ResultSet;
 import java.until.Arraylist;
 
 public class Main {
-
+  
+  public static Compiled; // Holds the value whether the program was able to compile or not!
+  public String Value; // Holds the value of the function's output.
+  
+  public static ArrayList<Test> test_Array = new ArrayList<Test>();
+  public static ArrayList<Student> student_Array = new ArrayList<Student>();
+  public static ArrayList<Question> question_Array = new ArrayList<Question>();
+  
 }
