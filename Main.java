@@ -7,12 +7,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.until.Arraylist;
+import java.util.ArrayList;
 
 public class Main {
   
-  public static Compiled; // Holds the value whether the program was able to compile or not!
-  public String Value; // Holds the value of the function's output.
+  public static boolean Compiled; // Holds the value whether the program was able to compile or not!
+  public static String Value; // Holds the value of the function's output.
   
   public static ArrayList<Test> test_Array = new ArrayList<Test>();
   public static ArrayList<Student> student_Array = new ArrayList<Student>();
@@ -44,7 +44,7 @@ public class Main {
       System.out.println("connection has been established");
       
       Statement statement = connection1.createStatement();
-      ResultSet Database = statement.executeQuerry("SELECT Answers2.StudentID, Answers2.TestID, Answers2.QuestionID, Answers2.Answer, Questions2.QuestionTitle, Questions2.QuestionType, Questions2.QuestionGrade, Questions2.InputValue, Questions2.OutputValue, Questions2.Variable, Questions2.Question, Questions2.Intializing_Var FROM Answers2, Questions2 WHERE Answers2.QuestionID = Questions2.QuestionID;");
+      ResultSet Database = statement.executeQuery("SELECT Answers2.StudentID, Answers2.TestID, Answers2.QuestionID, Answers2.Answer, Questions2.QuestionTitle, Questions2.QuestionType, Questions2.QuestionGrade, Questions2.InputValue, Questions2.OutputValue, Questions2.Variable, Questions2.Question, Questions2.Intializing_Var FROM Answers2, Questions2 WHERE Answers2.QuestionID = Questions2.QuestionID;");
       
       while(Database.next()){
         Test test = new Test(String.valueOf(Database.getInt(2)));
@@ -64,7 +64,7 @@ public class Main {
           
           if(Compiled){ //checks and grade if the function compiled.
             System.out.println("program has compiled sucessfully");
-            student.AddGrade(CompileGrade); // compile grade is 50% of question grade
+            student.AddGrade(CompilingGrade); // compile grade is 50% of question grade
             student.setProfessorNotes("program compiled");
             
             if(NameOfFunction(question, student)){ //checks and grade if the function name is correct
@@ -96,8 +96,8 @@ public class Main {
 			student.AddToProfessorNotes("Function name is incorrect");	
 		}
 		if(FunctionReturnValue(question)){
-		  student.AddGrade(ParialGrade);
-		  studnet.AddToProfessorNotes("Function returns correct value");
+		  student.AddGrade(PartialGrade);
+		  student.AddToProfessorNotes("Function returns correct value");
 		}
 		else{
 		  student.AddToProfessorNotes("Function return wront value");
@@ -125,7 +125,7 @@ public class Main {
       return;
     }finally{
       try{
-        if(connection1 != null
+        if(connection1 != null)
           connection1.close();
         System.out.println("connection1 closed");
       }catch (SQLException ex){
@@ -157,7 +157,7 @@ public class Main {
   }
   public static void printLines (String name, InputStream isn) throws Exception {
   	String line = null;
-  	BufferedReader input = new BufferedReader (new InputStreamReader(ins));
+  	BufferedReader input = new BufferedReader (new InputStreamReader(isn));
   	while((line = input.readLine()) != null){
   		System.out.println(name + " " + line);
   		Value = String.valueOf(line);
@@ -184,7 +184,7 @@ public class Main {
   	return false;
   }
   public static boolean FunctionReturnValue (Question Q){
-  	if(Q.QuestionOutput.equals(String.valueOf(Value))
+  	if(Q.QuestionOutput.equals(String.valueOf(Value)))
   		return true;
   	return false;
   }
