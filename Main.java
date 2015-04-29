@@ -85,17 +85,16 @@ public class Main {
           }
           else{
             System.out.println("Program could not compile, check for Syntax errors.");
-		student.AddGrade(0);
-		student.setProfessorNotes("program did not compile");
+            student.AddGrade(0);	
+            student.setProfessorNotes("program did not compile");
 						
 		if(NameOfFunction(question, student)) {
-			  student.AddGrade(PartialGrade);
-			  student.AddToProfessorNotes("Function name correction ");
+			student.AddGrade(PartialGrade);
+			student.AddToProfessorNotes("Function name correction ");
 		}
 		else{
 			student.AddToProfessorNotes("Function name is incorrect");	
 		}
-						
 		if(FunctionReturnValue(question)){
 		  student.AddGrade(ParialGrade);
 		  studnet.AddToProfessorNotes("Function returns correct value");
@@ -133,5 +132,83 @@ public class Main {
         ex.printStackTrace();
       }
     }
+    try { // Establishing connection to the database for writing.
+    connection2 = DriverManager.getConnection ("jdbc:mysql://sql.njit.edu:3306/UCID", "UCID", "PASSWORD");
+    System.out.println("Conenction  established for sending to database.");
+    Statement statement = connection2.createStatement();
+    for(int i = 0; i < student_Array.size(); i++){
+    	String sql = "mySQL Query goes here";
+    	statement.executeUpdate(sql);
+    }
+    System.out.println("Data has been saved in database.");
+    connection2.close();
+  }catch(SQLException ex){
+  	System.out.println("Connection failed! check output console.");
+  	return;
+  }finally{
+  	try {
+  		if(connection2 != null)
+  			connection2.close();
+  		System.out.println("connection closed!");
+  	}catch(SQLException ex){
+  		ex.printStackTrace();
+  	}
+  }
+  }
+  public static void printLines (String name, InputStream isn) throws Exception {
+  	String line = null;
+  	BufferedReader input = new BufferedReader (new InputStreamReader(ins));
+  	while((line = input.readLine()) != null){
+  		System.out.println(name + " " + line);
+  		Value = String.valueOf(line);
+  	}
+  }
+  public static void runProcess(String command) throws Exception {
+  	Process pro = Runtime.getRuntime().exec(command);
+  	printLines(command + " output: ", pro.getInputStream());
+  	printLines(command + " Syntax Error: ", pro.getInputStream());
+  	pro.waitFor();
+  	System.out.println(command + " exitValue() " + pro.exitValue());
+  	if(pro.exitValue() == 0){
+  		Compiled = true;
+  	}
+  	else {
+  		Compiled = false;
+  	}
+  }
+  public static boolean NameOfFunction (Question Q, Student S){
+  	String S_token = Q.getQuestionTitle();
+  	String Range = S.getStudentAnswer();
+  	if(Range.contains(S_token))
+  		return true;
+  	return false;
+  }
+  public static boolean FunctionReturnValue (Question Q){
+  	if(Q.QuestionOutput.equals(String.valueOf(Value))
+  		return true;
+  	return false;
+  }
+  public static boolean FunctionTypeValidor (Question Q, Student S) {
+  	String [] Answer = S.getStudentAnswer().split(" ");
+  	Token token = Token.LOOKING_FOR_KEYS;
+  	for(int i = 0; i < Answer.length; i++){
+  		switch(token){
+  		case LOOKING_FOR_KEYS:
+  			if(Answer[i].equals("public") || Answer[i].equals("private") || Answer[i].equals("protected") || Answer[i].equals("static")){
+  				token = Token.LOOKING_FOR_TYPE;
+  			}
+  			continue;
+  		case LOOKING_FOR_TYPE:
+  			if(Answer[i].equals(Q.getQuestionType())){
+  				token = Token.FOUND_TYPE;
+  			}
+  			continue;
+  		case FOUND_TYPE:
+  			return true;
+  		default:
+  			break;
+  		}
+  	}
+  	return false;
   }
 }
